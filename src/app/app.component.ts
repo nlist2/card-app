@@ -5,6 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
+import { collection, doc, getDocs, getFirestore, query, setDoc } from "firebase/firestore"; 
+
+
 
 @Component({
   selector: 'app-root',
@@ -32,17 +35,12 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const citiesRef = collection(db, "test");
 
-console.log(app);
-// Initialize Firebase
-//const analytics = getAnalytics(app);
 
-//export var settings = jQuery.ajax({
- // "async": true,
-//  "crossDomain": true,
- // "url": "https://api.psacard.com/publicapi/cert/GetByCertNumber/00000002",
-//  "method": "GET",
- // "headers": {
- //       "authorization": "bearer mTGre-L_PPwEklu2QiXwrwvj5eKoJ1shY4dlP3navOqpnu-tMFiZjMu8PQWmMk4_OdK5qk7KOMTyDRWC6bm3h8RE8lkl34yRcl4T4EgCfZmub4sfg0qceByQr2o6LDBCplbp7aIcHWYOWOqPkETEK8ejQ6ybpJXslP4ZFYnPz85OzaVtL5VX-S75LFxvEkiotNg99pHJGIv1gUu775sH_Jtx4DIBH4nXEhHvmgEykC83gOlM1wqDjiYROQsTRtj63LuAAOB92D-PKRhe1xN9PrD38s9vIlb_AUGdwZa_ytziI0OV"
- // }}
-//);
+// if the button is clicked, add this
+setDoc(doc(citiesRef, "SF"), {
+  name: "San Francisco", state: "CA", country: "USA",
+  capital: false, population: 860000,
+  regions: ["west_coast", "norcal"] });
