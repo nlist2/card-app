@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "dist/card-app/src",
+    "public": "dist/card-app/browser",
+    "site": "card-app-e8d58",
     "ignore": [
       "firebase.json",
       "**/.*",
