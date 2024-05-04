@@ -5,8 +5,8 @@
         <h1 class="nav-title">{{ title }}</h1>
       </div>
 
-      <div class='md-padding' fxLayout="row" fxLayout="row wrap" fxLayoutGap="20px grid" fxLayoutAlign="center start">
-         <div class="card-row" *ngFor="let card of userCards" fxFlex.gt-md="calc(50% - 20px)" fxFlex.gt-sm="calc(33.33% - 20px)" fxFlex.xs="calc(100% - 20px)">
+      <div class='md-padding row-wrap row-gap-center-start'>
+         <div class="card-row" *ngFor="let card of userCards">
           <mat-card class="example-card">
             <mat-card-header>
               <mat-card-title>{{ card['playerName'] }}</mat-card-title>
@@ -41,3 +41,4 @@
 </main>
 
 <router-outlet />
+
