@@ -10,11 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatCardModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterOutlet, MatCardModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -30,19 +31,20 @@ export class AppComponent {
 
   async ngOnInit(): Promise<void> {
     this.cardInfoForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      playerName: ['', Validators.required],
       cardNumber: ['', Validators.required],
       cardCompany: ['', Validators.required],
     });
 
     this.loadDatabase();
+    this.loadCardData();
   }
 
   public onFormSubmit(): void {
     const formData = this.cardInfoForm.value;
 
-    setDoc(doc(this.cardData, "user"), {
-      playerName: formData.name, 
+    setDoc(doc(this.cardData, formData.playerName), {
+      playerName: formData.playerName, 
       cardNumber: formData.cardNumber, 
       cardCompany: formData.cardCompany});
 
@@ -56,8 +58,12 @@ export class AppComponent {
 
   private async loadCardData(): Promise<void> {
     const querySnapshot = await getDocs(this.cardData);
+    // this might cause problems later
+    this.userCards = [];
     querySnapshot.forEach((doc) => {
-      this.userCards.push(doc.data());
+      this.userCards.indexOf(doc.data()) === -1 ? 
+      this.userCards.push(doc.data()) : 
+      console.log("This item already exists");
     });
   }
 

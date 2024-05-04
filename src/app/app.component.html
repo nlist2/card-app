@@ -1,51 +1,43 @@
 <main class="main">
-  <div class="content">
-    <div class="nav">
-      <h1>{{ title }}</h1>
-    </div>
+  <div fxLayout.gt-lg="column" class="content">
+    <div fxLayout="column">
+      <div class="nav">
+        <h1>{{ title }}</h1>
+      </div>
 
-    <div class='md-padding' layout="row" flex>
-      <div layout="row" flex>
-         <div class="parent" layout="column" *ngFor="let card of userCards" flex>
+      <div class='md-padding' fxLayout="row" fxLayout="row wrap" fxLayoutGap="20px grid">
+         <div class="card-row" *ngFor="let card of userCards" fxFlex.gt-md="calc(50% - 20px)" fxFlex.gt-sm="calc(33.33% - 20px)" fxFlex.xs="calc(100% - 20px)">
           <mat-card class="example-card">
             <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
               <mat-card-title>{{ card['playerName'] }}</mat-card-title>
               <mat-card-subtitle>{{ card['cardNumber'] }}</mat-card-subtitle>
             </mat-card-header>
-            Header
             <mat-card-content>
-              <p>
-              
-              </p>
+              {{ card['cardCompany'] }}
             </mat-card-content>
             <mat-card-actions>
               
             </mat-card-actions>
           </mat-card>
-         </div>
+        </div>
       </div>
-   </div>
-
-    <div class="left-side">
-      <mat-card class="cardForm">
-        <form [formGroup]="cardInfoForm" *ngIf="formOpen">
-          <input type="text" formControlName="name" placeholder="Player name">
-          <input type="number" formControlName="cardNumber" placeholder="Card number">
-          <input type="text" formControlName="cardCompany" placeholder="Card company">
-          <button type="submit" (click)="onFormSubmit()">Submit</button>
-        </form>
-    </mat-card>
     </div>
-
-    <div class="right-side">
-    </div>
-
-    <button mat-fab color="black" (click)="onFormButtonClick()" class="bottom-right-button">
-      <b> + </b>
-    </button>
-
   </div>
+
+  <mat-card class="cardForm">
+    <form [formGroup]="cardInfoForm" *ngIf="formOpen">
+      <div layout="column" flex>
+        <input type="text" formControlName="playerName" placeholder="Player name">
+        <input type="number" formControlName="cardNumber" placeholder="Card number">
+        <input type="text" formControlName="cardCompany" placeholder="Card company">
+        <button type="submit" (click)="onFormSubmit()">Submit</button>
+      </div>
+    </form>
+  </mat-card>
+
+  <button mat-fab color="black" (click)="onFormButtonClick()" class="bottom-right-button">
+    <b> + </b>
+  </button>
 </main>
 
 <router-outlet />
