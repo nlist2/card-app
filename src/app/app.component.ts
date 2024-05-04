@@ -35,7 +35,7 @@ export class AppComponent {
       cardCompany: ['', Validators.required],
     });
 
-    this.loadCardData();
+    this.loadDatabase();
   }
 
   public onFormSubmit(): void {
