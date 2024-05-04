@@ -12,6 +12,10 @@
   }
 
   .nav {
+    .nav-title {
+      font-size: 1.2cm;
+    }
+
     margin-bottom: 15px;
   }
 
@@ -41,11 +45,8 @@
         }
     }
 
-    .card-row {
-      max-width: 70%;
-    }
-
     .example-card {
+        min-width: 125px;
         max-width: 200px;
         box-shadow: 1px 1px 1px darkgray;
         transform-origin: center; /* Ensure the rotation point is at the center of the element */
@@ -89,7 +90,6 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
-    max-width: 700px;
     margin-bottom: 3rem;
   }
 

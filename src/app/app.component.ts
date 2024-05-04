@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
-import { CollectionReference, DocumentData, collection, doc, getDocs, getFirestore, query, setDoc } from "firebase/firestore"; 
+import { CollectionReference, DocumentData, collection, doc, getDocs, deleteDoc, getFirestore, query, setDoc } from "firebase/firestore"; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -54,6 +54,11 @@ export class AppComponent {
 
   public onFormButtonClick(): void {
     this.formOpen = !this.formOpen;
+  }
+
+  public async deleteCard(playerName: string): Promise<void> {
+    await deleteDoc(doc(this.cardData, playerName));
+    this.loadCardData();
   }
 
   private async loadCardData(): Promise<void> {

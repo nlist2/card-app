@@ -2,7 +2,7 @@
   <div fxLayout.gt-lg="column" class="content">
     <div fxLayout="column">
       <div class="nav">
-        <h1>{{ title }}</h1>
+        <h1 class="nav-title">{{ title }}</h1>
       </div>
 
       <div class='md-padding' fxLayout="row" fxLayout="row wrap" fxLayoutGap="20px grid">
@@ -16,7 +16,7 @@
               {{ card['cardCompany'] }}
             </mat-card-content>
             <mat-card-actions>
-              
+              <button mat-flat-button color="warn" (click)="deleteCard(card['playerName'])">Delete</button>
             </mat-card-actions>
           </mat-card>
         </div>
