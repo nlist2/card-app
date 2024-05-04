@@ -5,10 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
-import { CollectionReference, DocumentData, collection, doc, getDocs, deleteDoc, getFirestore, query, setDoc } from "firebase/firestore"; 
+import { CollectionReference, DocumentData, collection, doc, getDocs, deleteDoc, getFirestore, setDoc } from "firebase/firestore"; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
