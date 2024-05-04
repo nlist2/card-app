@@ -28,9 +28,18 @@
   .bottom-right-button {
     position: fixed;
     bottom: 20px;
-    background-color: black;
     right: 20px;
     z-index: 1000;  /* Make sure it floats above other content */
+  }
+
+  .cardForm {
+    input, button {
+      margin: 10px;
+    }
+    position: fixed;
+    bottom: 100px;
+    right: 100px;
+    z-index: 1000;
   }
 
     @keyframes sway {

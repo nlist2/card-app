@@ -3,52 +3,46 @@
     <div class="nav">
       <h1>{{ title }}</h1>
     </div>
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-        <p>
-          l
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
 
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-      <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-          bred for hunting.
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
+    <div class='md-padding' layout="row" flex>
+      <div layout="row" flex>
+         <div class="parent" layout="column" *ngFor="let card of userCards" flex>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{ card['playerName'] }}</mat-card-title>
+              <mat-card-subtitle>{{ card['cardNumber'] }}</mat-card-subtitle>
+            </mat-card-header>
+            Header
+            <mat-card-content>
+              <p>
+              
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              
+            </mat-card-actions>
+          </mat-card>
+         </div>
+      </div>
+   </div>
 
     <div class="left-side">
+      <mat-card class="cardForm">
+        <form [formGroup]="cardInfoForm" *ngIf="formOpen">
+          <input type="text" formControlName="name" placeholder="Player name">
+          <input type="number" formControlName="cardNumber" placeholder="Card number">
+          <input type="text" formControlName="cardCompany" placeholder="Card company">
+          <button type="submit" (click)="onFormSubmit()">Submit</button>
+        </form>
+    </mat-card>
     </div>
 
     <div class="right-side">
     </div>
 
-    <button mat-fab color="black" class="bottom-right-button">
-      <mat-icon color="white">router</mat-icon>
+    <button mat-fab color="black" (click)="onFormButtonClick()" class="bottom-right-button">
+      <b> + </b>
     </button>
 
   </div>
