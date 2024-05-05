@@ -4,7 +4,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from "firebase/analytics";
 import { CollectionReference, DocumentData, collection, doc, getDocs, deleteDoc, getFirestore, setDoc } from "firebase/firestore"; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,24 +18,20 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   styleUrl: './app.component.css'
 })
 
-export class AppComponent {
+export class AppComponent{
   title = 'Card Collection';
   cardData: CollectionReference<DocumentData, DocumentData>;
   cardInfoForm: FormGroup;
   formOpen: boolean = false;
   userCards = [] as DocumentData[];
 
-  constructor(private formBuilder: FormBuilder){}
-
-  async ngOnInit(): Promise<void> {
+  constructor(private formBuilder: FormBuilder){
     this.cardInfoForm = this.formBuilder.group({
       playerName: ['', Validators.required],
       cardNumber: ['', Validators.required],
       cardCompany: ['', Validators.required],
     });
-
     this.loadDatabase();
-    this.loadCardData();
   }
 
   public onFormSubmit(): void {
@@ -52,6 +47,7 @@ export class AppComponent {
   }
 
   public onFormButtonClick(): void {
+    this.loadCardData();
     this.formOpen = !this.formOpen;
   }
 
