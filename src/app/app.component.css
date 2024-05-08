@@ -40,15 +40,6 @@
   z-index: 1000;
 }
 
-  @keyframes sway {
-    0%, 100% {
-    transform: rotate(-3deg);
-    }
-    50% {
-    transform: rotate(3deg) scale(1.02);
-    }
-  }
-
   .content {
     display: flex;
     flex-direction: column;
@@ -73,23 +64,6 @@
   .card-row {
     margin: 10px;
   }
-
-  .example-card {
-    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-    min-width: 125px;
-    max-width: 200px;
-    box-shadow: 1px 1px 1px darkgray;
-    transform-origin: center; /* Ensure the rotation point is at the center of the element */
-    border-radius: 3px;
-  }
-    
-    .example-card:hover {
-      animation: sway 2s ease-in-out infinite; /* Continuous rotation effect */
-      animation-duration: 1s; /* Duration of the enlargement animation */
-      animation-fill-mode: forwards; /* Keep the element enlarged after the animation ends */
-    }
 
 h1 {
   color: var(--gray-900);
@@ -130,4 +104,8 @@ main {
     flex-direction: column;
     width: max-content;
   }
+}
+
+.rotate-45 {
+  transform: rotate(45deg);
 }

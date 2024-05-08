@@ -1,0 +1,63 @@
+:host {
+    --gray-900: oklch(19.37% 0.006 300.98);
+    --gray-700: oklch(36.98% 0.014 302.71);
+    --gray-400: oklch(70.9% 0.015 304.04);
+  
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+    @keyframes sway {
+      0%, 100% {
+      transform: rotate(-3deg);
+      }
+      50% {
+      transform: rotate(3deg) scale(1.02);
+      }
+    }
+
+  
+    .example-card {
+        background: 
+            linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0), 
+            rgba(255, 255, 255, 1) 70% 
+            ),
+            url('../../assets/ripken.jpeg') no-repeat center/cover;
+            background-size: 120%;
+
+      font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+      min-width: 200px;
+      max-width: 300px;
+      aspect-ratio: 0.75;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      transform-origin: center; /* Ensure the rotation point is at the center of the element */
+      border-radius: 6px;
+      .card-bottom{
+        bottom: 10px;
+        position: absolute;
+        }
+    }
+      
+      .example-card:hover {
+        animation: sway 2s ease-in-out infinite; /* Continuous rotation effect */
+        animation-duration: 1s; /* Duration of the enlargement animation */
+        animation-fill-mode: forwards; /* Keep the element enlarged after the animation ends */
+      }
+  
+  h1 {
+    color: var(--gray-900);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  }

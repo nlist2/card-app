@@ -9,11 +9,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CardComponent } from './card/card.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatCardModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule],
+  imports: [RouterOutlet, MatCardModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule, CardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -23,6 +24,7 @@ export class AppComponent{
   cardData: CollectionReference<DocumentData, DocumentData>;
   cardInfoForm: FormGroup;
   formOpen: boolean = false;
+  rotateClass: string = '';
   userCards = [] as DocumentData[];
 
   constructor(private formBuilder: FormBuilder){
@@ -32,6 +34,7 @@ export class AppComponent{
       cardCompany: ['', Validators.required],
     });
     this.loadDatabase();
+
   }
 
   public onFormSubmit(): void {
@@ -49,6 +52,7 @@ export class AppComponent{
   public onFormButtonClick(): void {
     this.loadCardData();
     this.formOpen = !this.formOpen;
+    this.rotateClass = this.formOpen ? 'rotate-45' : '';
   }
 
   public async deleteCard(playerName: string): Promise<void> {

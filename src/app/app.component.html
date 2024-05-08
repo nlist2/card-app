@@ -6,23 +6,10 @@
       </div>
 
       <div class='md-padding row-wrap row-gap-center-start'>
-         <div class="card-row" *ngFor="let card of userCards">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <mat-card-title>{{ card['playerName'] }}</mat-card-title>
-              <mat-card-subtitle>{{ card['cardNumber'] }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              {{ card['cardCompany'] }}
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-flat-button color="warn" (click)="deleteCard(card['playerName'])">Delete</button>
-            </mat-card-actions>
-          </mat-card>
+        <div class="card-row" *ngFor="let card of userCards">
+          <card [card]="card"></card>
         </div>
       </div>
-    </div>
-  </div>
 
   <mat-card class="cardForm">
     <form [formGroup]="cardInfoForm" *ngIf="formOpen">
@@ -35,10 +22,9 @@
     </form>
   </mat-card>
 
-  <button mat-fab color="black" (click)="onFormButtonClick()" class="bottom-right-button">
-    <mat-icon>home</mat-icon>
+  <button mat-fab color="black" (click)="onFormButtonClick()" [ngClass]="rotateClass" class="bottom-right-button">
+    <b style="font-size: x-large;">+</b>
   </button>
-</main>
-
+  
 <router-outlet />
 

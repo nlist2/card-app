@@ -1,0 +1,13 @@
+<mat-card class="example-card">
+  <div fxLayout="row" class="card-bottom">
+    <div fxLayout="column">
+      <h1>{{ card['playerName'] }}</h1>
+      {{ card['cardNumber'] }}
+      {{ card['cardCompany'] }}
+    </div>
+    <div fxLayout="column">
+      <button mat-flat-button color="warn">x</button>
+    </div>
+        <!-- (click)="app.deleteCard(card['playerName'])" -->
+  </div>
+</mat-card>
