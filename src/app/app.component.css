@@ -16,7 +16,19 @@
     font-size: 1.2cm;
   }
 
-  margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+
+  ::after {
+    content: '';
+    position: absolute;
+    bottom: -15px; /* Adjust as needed */
+    left: 0;
+    width: 150px;
+    height: 4px; /* Adjust thickness as needed */
+    background-color: black;
+  }
 }
 
 .bottom-right-button {

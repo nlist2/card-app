@@ -5,22 +5,14 @@
         <h1 class="nav-title">{{ title }}</h1>
       </div>
 
+      <login *ngIf="!loggedIn">
+      </login>
+
       <div class='md-padding row-wrap row-gap-center-start'>
         <div class="card-row" *ngFor="let card of userCards">
           <card [card]="card"></card>
         </div>
       </div>
-
-  <mat-card class="cardForm">
-    <form [formGroup]="cardInfoForm" *ngIf="formOpen">
-      <div layout="column" flex>
-        <input type="text" formControlName="playerName" placeholder="Player name">
-        <input type="number" formControlName="cardNumber" placeholder="Card number">
-        <input type="text" formControlName="cardCompany" placeholder="Card company">
-        <button type="submit" (click)="onFormSubmit()">Submit</button>
-      </div>
-    </form>
-  </mat-card>
 
   <button mat-fab color="black" (click)="onFormButtonClick()" [ngClass]="rotateClass" class="bottom-right-button">
     <b style="font-size: x-large;">+</b>

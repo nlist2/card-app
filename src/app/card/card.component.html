@@ -6,7 +6,7 @@
       {{ card['cardCompany'] }}
     </div>
     <div fxLayout="column">
-      <button mat-flat-button color="warn">x</button>
+      <button mat-flat-button color="warn" (click)="deletePlayer(card['playerName'])">x</button>
     </div>
         <!-- (click)="app.deleteCard(card['playerName'])" -->
   </div>

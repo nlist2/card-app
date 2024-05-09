@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,11 +10,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CardComponent } from './card/card.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { firebaseConfig, psaSettings } from '../environment';
+import { MatInputModule } from '@angular/material/input';
+import { LoginComponent } from './login/login.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { FormDialog } from './form/form.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DbService } from './db.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatCardModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule, CardComponent],
+  imports: [RouterOutlet, MatCardModule, HttpClientModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule, CardComponent, LoginComponent, MatFormFieldModule, MatInputModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -25,65 +34,22 @@ export class AppComponent{
   cardInfoForm: FormGroup;
   formOpen: boolean = false;
   rotateClass: string = '';
-  userCards = [] as DocumentData[];
+  userCards: DocumentData[];
+  public loggedIn: boolean = false;
+  response: any;
 
-  constructor(private formBuilder: FormBuilder){
-    this.cardInfoForm = this.formBuilder.group({
-      playerName: ['', Validators.required],
-      cardNumber: ['', Validators.required],
-      cardCompany: ['', Validators.required],
-    });
-    this.loadDatabase();
-
+  constructor(private dialog: MatDialog, private DbService: DbService){
+    DbService.loadDatabase();
   }
 
-  public onFormSubmit(): void {
-    const formData = this.cardInfoForm.value;
-
-    setDoc(doc(this.cardData, formData.playerName), {
-      playerName: formData.playerName, 
-      cardNumber: formData.cardNumber, 
-      cardCompany: formData.cardCompany});
-
-    this.formOpen = false;
-    this.loadCardData();
+  private async loadCards(): Promise<void> {
+    this.userCards = await this.DbService.loadCardData();
   }
 
   public onFormButtonClick(): void {
-    this.loadCardData();
+    this.loadCards();
+    this.dialog.open(FormDialog);
     this.formOpen = !this.formOpen;
     this.rotateClass = this.formOpen ? 'rotate-45' : '';
-  }
-
-  public async deleteCard(playerName: string): Promise<void> {
-    await deleteDoc(doc(this.cardData, playerName));
-    this.loadCardData();
-  }
-
-  private async loadCardData(): Promise<void> {
-    const querySnapshot = await getDocs(this.cardData);
-    // this might cause problems later
-    this.userCards = [];
-    querySnapshot.forEach((doc) => {
-      this.userCards.indexOf(doc.data()) === -1 ? 
-      this.userCards.push(doc.data()) : 
-      console.log("This item already exists");
-    });
-  }
-
-  private loadDatabase(): void {
-    const firebaseConfig = {
-      apiKey: "AIzaSyCXWprLVXeI8GO_F9kOtdavG13Zc8UeAfI",
-      authDomain: "card-app-e8d58.firebaseapp.com",
-      projectId: "card-app-e8d58",
-      storageBucket: "card-app-e8d58.appspot.com",
-      messagingSenderId: "1082177021578",
-      appId: "1:1082177021578:web:a5726757e3a1480719af73",
-      measurementId: "G-YRN16NYZ0T"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    this.cardData = collection(db, "test");
   }
 }
