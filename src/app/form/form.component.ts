@@ -52,10 +52,10 @@ export class FormDialog {
     }
 
     private fetchData(certNumber: string): void {
-        const headers = new HttpHeaders({
-            'Authorization': psaToken
-          });
-      
+      const headers = new HttpHeaders({
+        'Authorization': psaToken
+      });
+  
           this.http.get<any>(`https://api.psacard.com/publicapi/cert/GetByCertNumber/${certNumber}`, { headers })
             .subscribe(
               data => {
@@ -76,8 +76,31 @@ export class FormDialog {
     }
 
     public submitForm(): void {
-        const values = this.cardForm.value;
-        this.dbService.onFormSubmit(values.playerName, values.cardNumber, values.cardCompany);
+      const headers = new HttpHeaders({
+        'Authorization': psaToken
+      });
+
+      const values = this.cardForm.value;
+
+      this.http.get<any>(`https://api.psacard.com/publicapi/cert/GetImagesByCertNumber/${values.certNumber}`, { headers })
+        .subscribe(
+          data => {
+            this.response = data;  // Handle the response data
+            console.log(data);
+            data.forEach((element: {
+              ImageURL: any; IsFrontImage: any; 
+}) => {
+              if (element.IsFrontImage) {
+                this.dbService.onFormSubmit(values.playerName, values.cardNumber, values.cardCompany, element.ImageURL);
+              }
+            });
+
+          },
+          error => {
+            console.error('There was an error!', error);
+            this.dbService.onFormSubmit(values.playerName, values.cardNumber, values.cardCompany);
+          }
+        );
     }
 
 }

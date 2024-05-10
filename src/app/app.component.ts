@@ -33,7 +33,6 @@ export class AppComponent{
   cardData: CollectionReference<DocumentData, DocumentData>;
   cardInfoForm: FormGroup;
   formOpen: boolean = false;
-  rotateClass: string = '';
   userCards: DocumentData[];
   public loggedIn: boolean = false;
   response: any;
@@ -50,6 +49,5 @@ export class AppComponent{
     this.loadCards();
     this.dialog.open(FormDialog);
     this.formOpen = !this.formOpen;
-    this.rotateClass = this.formOpen ? 'rotate-45' : '';
   }
 }

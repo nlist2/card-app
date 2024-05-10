@@ -21,11 +21,12 @@ export class DbService {
     this.cardData = collection(db, "test");
   }
 
-  public onFormSubmit(playerName: string, cardNumber: string, cardCompany: string): void {
+  public onFormSubmit(playerName: string, cardNumber: string, cardCompany: string, imageURL?: string): void {
     setDoc(doc(this.cardData, playerName), {
       playerName: playerName, 
       cardNumber: cardNumber, 
-      cardCompany: cardCompany});
+      cardCompany: cardCompany,
+      imageURL: imageURL});
 
     this.loadCardData();
   }

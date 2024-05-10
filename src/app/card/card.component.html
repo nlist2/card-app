@@ -1,13 +1,29 @@
-<mat-card class="example-card">
-  <div fxLayout="row" class="card-bottom">
-    <div fxLayout="column">
-      <h1>{{ card['playerName'] }}</h1>
-      {{ card['cardNumber'] }}
-      {{ card['cardCompany'] }}
+
+<div class="card" (click)="toggleFlip()">
+  <div class="card-inner" [class.flipped]="isFlipped">
+    <div class="card-front">
+      <mat-card class="example-card">
+        <img src="{{ card['imageURL'] }}" alt="Player Image" class="card-image">
+        <div fxLayout="row">
+          <div fxLayout="column">
+            <button mat-mini-fab class="trash-button" color="accent" (click)="deletePlayer(card['playerName'])"><mat-icon>delete</mat-icon></button>
+          </div>
+        </div>
+      </mat-card>
     </div>
-    <div fxLayout="column">
-      <button mat-flat-button color="warn" (click)="deletePlayer(card['playerName'])">x</button>
+    <div class="card-back">
+      <div fxLayout="row">
+        <div fxLayout="column">
+          <button mat-mini-fab class="trash-button" color="accent" (click)="deletePlayer(card['playerName'])"><mat-icon>delete</mat-icon></button>
+        </div>
+        <div class="card-bottom" fxLayout="column">
+          <h1>{{ card['playerName'] }}</h1>
+          <b>#{{ card['cardNumber'] }}</b>
+          <br>
+          {{ card['cardCompany'] }}
+          <br>
+        </div>
+      </div>
     </div>
-        <!-- (click)="app.deleteCard(card['playerName'])" -->
   </div>
-</mat-card>
+</div>

@@ -5,6 +5,12 @@
         <h1 class="nav-title">{{ title }}</h1>
       </div>
 
+      <div class="count">
+        <p class="count-title">
+          {{ userCards?.length ?? 0 }} cards.
+        </p>
+      </div>
+
       <login *ngIf="!loggedIn">
       </login>
 
@@ -14,7 +20,7 @@
         </div>
       </div>
 
-  <button mat-fab color="black" (click)="onFormButtonClick()" [ngClass]="rotateClass" class="bottom-right-button">
+  <button mat-fab color="black" (click)="onFormButtonClick()" class="bottom-right-button">
     <b style="font-size: x-large;">+</b>
   </button>
   

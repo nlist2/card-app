@@ -74,7 +74,7 @@
   }
   
   .card-row {
-    margin: 10px;
+    margin: 20px;
   }
 
 h1 {
@@ -118,6 +118,6 @@ main {
   }
 }
 
-.rotate-45 {
-  transform: rotate(45deg);
+.count{
+  margin-top: 10px;
 }
