@@ -19,11 +19,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormDialog } from './form/form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DbService } from './db.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatCardModule, HttpClientModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule, CardComponent, LoginComponent, MatFormFieldModule, MatInputModule],
+  imports: [RouterOutlet, MatCardModule, HttpClientModule, MatTooltipModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule, CardComponent, LoginComponent, MatFormFieldModule, MatInputModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

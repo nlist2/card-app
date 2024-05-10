@@ -120,4 +120,14 @@ main {
 
 .count{
   margin-top: 10px;
+    display: flex;
+    align-items: center; /* This aligns the icon and text vertically in the middle */
+}
+
+.info-icon {
+  margin-left: 5px; /* Adjust margin as needed */
+  width: 25px;
+  height: 25px;
+  color: gray;
+  overflow: auto;
 }
