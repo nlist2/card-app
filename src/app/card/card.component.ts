@@ -18,13 +18,15 @@ import { MatIconModule } from '@angular/material/icon';
 export class CardComponent {
     @Input() card: DocumentData; 
     private DbService: DbService;
+    public isFlipped: boolean = false;
 
     constructor(DbService: DbService){
         this.DbService = DbService;
     }
 
-    isFlipped = false;
-    backContent = 'Initial back content';
+    ngOnInit() {
+      this.isFlipped = this.card['imageURL'] == "" ? true : false;
+    }
   
     toggleFlip() {
       this.isFlipped = !this.isFlipped;

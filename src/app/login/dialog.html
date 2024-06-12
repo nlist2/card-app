@@ -1,15 +1,19 @@
-<h1 mat-dialog-title>Login</h1>
-<mat-dialog-content class="mat-typography">
+<h1 class="login-title" mat-dialog-title>Login</h1>
+<mat-dialog-content class="login-form" class="mat-typography">
     <div class="cardForm">
         <div layout="column" flex>
-          <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput type="text" formControlName="username">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput type="text" formControlName="password">
-          </mat-form-field>
+          <div class="user-field">
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <input matInput type="text" formControlName="username">
+            </mat-form-field>
+          </div>
+          <div class="pass-field">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput type="text" formControlName="password">
+            </mat-form-field>
+          </div>
         </div>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,17 +14,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { firebaseConfig, psaSettings } from '../environment';
 import { MatInputModule } from '@angular/material/input';
 import { LoginComponent } from './login/login.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { FormDialog } from './form/form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DbService } from './db.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatCardModule, HttpClientModule, MatTooltipModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule, CardComponent, LoginComponent, MatFormFieldModule, MatInputModule],
+  imports: [RouterOutlet, MatTableModule, MatCardModule, MatSlideToggleModule, HttpClientModule, MatTooltipModule, MatButtonModule, MatIconModule, ReactiveFormsModule, CommonModule, FlexLayoutModule, CardComponent, LoginComponent, MatFormFieldModule, MatInputModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -36,7 +37,9 @@ export class AppComponent{
   formOpen: boolean = false;
   userCards: DocumentData[];
   public loggedIn: boolean = false;
+  public cardView: boolean = true;
   response: any;
+  @ViewChild("cardViewElement") ref: ElementRef;
 
   constructor(private dialog: MatDialog, private DbService: DbService){
     DbService.loadDatabase();
@@ -51,4 +54,10 @@ export class AppComponent{
     this.dialog.open(FormDialog);
     this.formOpen = !this.formOpen;
   }
+
+  public updateView(): void {
+    this.cardView = !this.cardView;
+  }
+
+  displayedColumns: string[] = ['demo-position', 'demo-name', 'demo-weight'];
 }

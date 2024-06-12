@@ -26,7 +26,7 @@ export class DbService {
       playerName: playerName, 
       cardNumber: cardNumber, 
       cardCompany: cardCompany,
-      imageURL: imageURL});
+      imageURL: imageURL ?? ""});
 
     this.loadCardData();
   }
