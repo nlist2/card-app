@@ -12,27 +12,33 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
-  imports: [FormsModule, MatCardModule, NgIf, UpperCasePipe, MatButtonModule, MatIconModule],
+  imports: [
+    FormsModule,
+    MatCardModule,
+    NgIf,
+    UpperCasePipe,
+    MatButtonModule,
+    MatIconModule,
+  ],
 })
-
 export class CardComponent {
-    @Input() card: DocumentData; 
-    private DbService: DbService;
-    public isFlipped: boolean = false;
+  @Input() card: DocumentData;
+  private DbService: DbService;
+  public isFlipped: boolean = false;
 
-    constructor(DbService: DbService){
-        this.DbService = DbService;
-    }
+  constructor(DbService: DbService) {
+    this.DbService = DbService;
+  }
 
-    ngOnInit() {
-      this.isFlipped = this.card['imageURL'] == "" ? true : false;
-    }
-  
-    toggleFlip() {
-      this.isFlipped = !this.isFlipped;
-    }
+  ngOnInit() {
+    this.isFlipped = this.card['imageURL'] == '' ? true : false;
+  }
 
-    public deletePlayer(player: string): void {
-        this.DbService.deleteCard(player);
-    }
+  toggleFlip() {
+    this.isFlipped = !this.isFlipped;
+  }
+
+  public deletePlayer(player: string): void {
+    this.DbService.deleteCard(player);
+  }
 }

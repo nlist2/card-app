@@ -1,33 +1,37 @@
 <h1 mat-dialog-title>Card Form</h1>
-    <mat-dialog-content [formGroup]="cardForm" class="mat-typography">
-        <div class="cardForm">
-            <div>
-                <div layout="column">
-                    <mat-form-field appearance="outline">
-                        <mat-label>PSA Cert Number</mat-label>
-                        <input matInput type="text" formControlName="certNumber">
-                    </mat-form-field>
-                </div>
-            <div layout="column" flex>
-                <mat-form-field appearance="outline">
-                <mat-label>Player Name</mat-label>
-                <input matInput type="text" formControlName="playerName">
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                <mat-label>Card Number</mat-label>
-                <input matInput type="number" formControlName="cardNumber">
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                <mat-label>Grade</mat-label>
-                <input matInput type="text" formControlName="cardGrade">
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                <mat-label>Card Company</mat-label>
-                <input matInput type="text" formControlName="cardCompany">
-                </mat-form-field>
-            </div>
-            </div>
+<mat-dialog-content [formGroup]="cardForm" class="mat-typography">
+  <div class="cardForm">
+    <div>
+      <div layout="column">
+        <mat-form-field appearance="outline">
+          <mat-label>PSA Cert Number</mat-label>
+          <input matInput type="text" formControlName="certNumber" />
+        </mat-form-field>
+      </div>
+      <div layout="column" flex>
+        <mat-form-field appearance="outline">
+          <mat-label>Player Name</mat-label>
+          <input matInput type="text" formControlName="playerName" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Card Number</mat-label>
+          <input matInput type="number" formControlName="cardNumber" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Grade</mat-label>
+          <input matInput type="text" formControlName="cardGrade" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Card Company</mat-label>
+          <input matInput type="text" formControlName="cardCompany" />
+        </mat-form-field>
+      </div>
+    </div>
     <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button type="button" mat-dialog-close (click)="submitForm()">Add</button>
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button type="button" mat-dialog-close (click)="submitForm()">
+        Add
+      </button>
     </mat-dialog-actions>
+  </div></mat-dialog-content
+>

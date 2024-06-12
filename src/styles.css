@@ -1,11 +1,10 @@
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 html .mat-mdc-mini-fab.mat-accent {
-    --mdc-fab-small-container-color: white;
+  --mdc-fab-small-container-color: white;
 }
 
-.mat-mdc-table{
-    box-shadow: none;
+.mat-mdc-table {
+  box-shadow: none;
 }

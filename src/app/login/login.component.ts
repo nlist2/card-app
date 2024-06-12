@@ -13,31 +13,33 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatDialogModule, MatButtonModule, MatFormFieldModule],
 })
 export class LoginComponent {
+  public loggedIn: boolean = false;
   constructor(public dialog: MatDialog) {
     const dialogRef = this.dialog.open(DialogContentExampleDialog);
-    }
   }
+}
 
-  @Component({
-    selector: 'dialog-content-example-dialog',
-    templateUrl: 'dialog.html',
-    styleUrls: ['./login.component.css'],
-    standalone: true,
-    providers: [],
-    imports: [MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule],
-  })
-
+@Component({
+  selector: 'dialog-content-example-dialog',
+  templateUrl: 'dialog.html',
+  styleUrls: ['./login.component.css'],
+  standalone: true,
+  providers: [],
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
+})
 export class DialogContentExampleDialog {
-    loginForm: FormGroup;
+  loginForm: FormGroup;
 
-    constructor(
-        private formBuilder: FormBuilder,
-    ){
-        this.loginForm = this.formBuilder.group({
-        username: ['', Validators.required],
-        password: ['', Validators.required],
-      });
-    }
-    login() {
-    }
+  constructor(private formBuilder: FormBuilder) {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
+  login() {}
 }

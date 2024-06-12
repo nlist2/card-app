@@ -1,12 +1,22 @@
-
 <div class="card" (click)="toggleFlip()">
   <div class="card-inner" [class.flipped]="isFlipped">
     <div class="card-front">
       <mat-card class="example-card">
-        <img src="{{ card['imageURL'] }}" alt="Player Image" class="card-image">
+        <img
+          src="{{ card['imageURL'] }}"
+          alt="Player Image"
+          class="card-image"
+        />
         <div fxLayout="row">
           <div fxLayout="column">
-            <button mat-mini-fab class="trash-button" color="accent" (click)="deletePlayer(card['playerName'])"><mat-icon>delete</mat-icon></button>
+            <button
+              mat-mini-fab
+              class="trash-button"
+              color="accent"
+              (click)="deletePlayer(card['playerName'])"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
       </mat-card>
@@ -14,14 +24,21 @@
     <div class="card-back">
       <div fxLayout="row">
         <div fxLayout="column">
-          <button mat-mini-fab class="trash-button" color="accent" (click)="deletePlayer(card['playerName'])"><mat-icon>delete</mat-icon></button>
+          <button
+            mat-mini-fab
+            class="trash-button"
+            color="accent"
+            (click)="deletePlayer(card['playerName'])"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
         <div class="card-bottom" fxLayout="column">
-          <h1>{{ card['playerName'] }}</h1>
-          <b>#{{ card['cardNumber'] }}</b>
-          <br>
-          {{ card['cardCompany'] }}
-          <br>
+          <h1>{{ card["playerName"] }}</h1>
+          <b>#{{ card["cardNumber"] }}</b>
+          <br />
+          {{ card["cardCompany"] }}
+          <br />
         </div>
       </div>
     </div>

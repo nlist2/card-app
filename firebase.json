@@ -2,11 +2,7 @@
   "hosting": {
     "public": "dist/card-app/browser",
     "site": "card-app-e8d58",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",

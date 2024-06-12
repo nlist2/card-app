@@ -1,54 +1,82 @@
 :host {
-    --gray-900: oklch(19.37% 0.006 300.98);
-    --gray-700: oklch(36.98% 0.014 302.71);
-    --gray-400: oklch(70.9% 0.015 304.04);
-  
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-    @keyframes sway {
-      0%, 100% {
-      transform: rotate(-1.5deg);
-      }
-      50% {
-      transform: rotate(1.5deg);
-      }
-    }
+  --gray-900: oklch(19.37% 0.006 300.98);
+  --gray-700: oklch(36.98% 0.014 302.71);
+  --gray-400: oklch(70.9% 0.015 304.04);
 
-    .example-card {     
-      font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-      min-width: 200px;
-      max-width: 300px;
-      aspect-ratio: 0.6;
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-      transform-origin: center; /* Ensure the rotation point is at the center of the element */
-      border-radius: 8px;
-    }
-  
-  h1 {
-    color: var(--gray-900);
-    font-weight: 500;
-    line-height: 100%;
-    letter-spacing: -0.125rem;
-    margin: 0;
-    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-1.5deg);
   }
-
-.cardForm{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  50% {
+    transform: rotate(1.5deg);
+  }
 }
 
-.trash-button{
+.example-card {
+  font-family:
+    "Inter Tight",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  min-width: 200px;
+  max-width: 300px;
+  aspect-ratio: 0.6;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transform-origin: center; /* Ensure the rotation point is at the center of the element */
+  border-radius: 8px;
+}
+
+h1 {
+  color: var(--gray-900);
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.125rem;
+  margin: 0;
+  font-family:
+    "Inter Tight",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+.cardForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.trash-button {
   position: fixed;
   top: -20px;
   left: -20px;
@@ -92,7 +120,8 @@
   position: relative;
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
   backface-visibility: hidden;
   position: absolute;
   width: 100%;
@@ -110,7 +139,7 @@
   transform: rotateY(180deg);
 }
 
-.card-bottom{
+.card-bottom {
   position: absolute;
   bottom: 10px;
 }
