@@ -36,6 +36,7 @@ export class FormDialog {
   private subscription: Subscription;
   response: JSON;
   private dbService: DbService;
+  private card: any;
 
   constructor(
     private DbService: DbService,
@@ -81,6 +82,7 @@ export class FormDialog {
       .subscribe(
         (data) => {
           this.response = data; // Handle the response data
+          this.card = data;
           console.log(data);
 
           this.cardForm.patchValue({
@@ -118,6 +120,7 @@ export class FormDialog {
                 values.playerName,
                 values.cardNumber,
                 values.cardCompany,
+                data.PSACert,
                 element.ImageURL,
               );
             }
@@ -129,8 +132,10 @@ export class FormDialog {
             values.playerName,
             values.cardNumber,
             values.cardCompany,
+            this.card.PSACert,
           );
         },
       );
+    this.DbService.loadCardData();
   }
 }

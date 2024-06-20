@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogRef } from '@angular/material/dialog';
+import { DbService } from '../db.service';
 
 @Component({
   selector: 'login',
@@ -14,8 +16,16 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class LoginComponent {
   public loggedIn: boolean = false;
-  constructor(public dialog: MatDialog) {
+
+  constructor(
+    public dialog: MatDialog,
+    private DbService: DbService,
+  ) {
     const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.DbService.loadCardData();
+    });
   }
 }
 
@@ -32,14 +42,24 @@ export class LoginComponent {
     MatInputModule,
   ],
 })
-export class DialogContentExampleDialog {
+export class DialogContentExampleDialog implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private dialogRef: MatDialogRef<DialogContentExampleDialog>,
+    private formBuilder: FormBuilder,
+  ) {}
+
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
-  login() {}
+
+  login() {
+    // Implement your login logic here if needed
+    // For example:
+    // if (this.loginForm.valid) { ... }
+  }
 }

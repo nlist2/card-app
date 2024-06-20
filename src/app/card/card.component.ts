@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
     UpperCasePipe,
     MatButtonModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
   ],
 })
 export class CardComponent {

@@ -10,22 +10,22 @@ html .mat-mdc-mini-fab.mat-accent {
 }
 
 html .mat-mdc-slider .mdc-slider__track--inactive {
-    background-color: gray;
+  background-color: gray;
 }
 
 html .mat-mdc-slider .mdc-slider__track--active_fill {
-    border-color: black;
+  border-color: black;
 }
 
 html .mat-mdc-slider .mdc-slider__thumb-knob {
-    border-color: black;
+  border-color: black;
 }
 
 html .mat-mdc-slider .mdc-slider__thumb-knob {
-    border-color: black;
+  border-color: black;
 }
 
 /* Change style of thumb when active */
 .mat-primary .mdc-slider__thumb--with-indicator:after {
-    border-color: black; /* Change color of thumb indicator */
+  border-color: black; /* Change color of thumb indicator */
 }

@@ -51,7 +51,7 @@ import { MatSlider, MatSliderModule } from '@angular/material/slider';
     LoginComponent,
     MatFormFieldModule,
     MatInputModule,
-    MatSliderModule
+    MatSliderModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -72,17 +72,18 @@ export class AppComponent {
     | undefined;
 
   card: string =
-  'M5.25 17.25q-.619 0-1.059-.441T3.75 15.75v-7.5q0-.619.441-1.059T5.25 6.75h7.5q.619 0 1.059.441T14.25 8.25v7.5q0 .619-.441 1.059T12.75 17.25H5.25Zm0-2.738q.825-.487 1.763-.75t1.987-.262q1.05 0 1.988.262t1.762.75v-6.262H5.25v6.262Zm3.75.488q-.769 0-1.5.188t-1.388.563h5.775q-.656-.375-1.387-.562t-1.5-.187Zm0-2.062q-.844 0-1.453-.609T6.938 10.875q0-.844.609-1.453T9 8.813q.844 0 1.453.609T11.063 10.875q0 .844-.609 1.453T9 12.938Zm0-1.387q.281 0 .478-.197T9.675 10.875q0-.281-.197-.478T9 10.2q-.281 0-.478.197T8.325 10.875q0 .281.197 .478T9 11.55Zm6.75 5.7v-10.5h1.5v10.5h-1.5Zm3 0v-10.5h1.5v10.5h-1.5ZM9 10.875Zm0 4.875Z'
+    'M5.25 17.25q-.619 0-1.059-.441T3.75 15.75v-7.5q0-.619.441-1.059T5.25 6.75h7.5q.619 0 1.059.441T14.25 8.25v7.5q0 .619-.441 1.059T12.75 17.25H5.25Zm0-2.738q.825-.487 1.763-.75t1.987-.262q1.05 0 1.988.262t1.762.75v-6.262H5.25v6.262Zm3.75.488q-.769 0-1.5.188t-1.388.563h5.775q-.656-.375-1.387-.562t-1.5-.187Zm0-2.062q-.844 0-1.453-.609T6.938 10.875q0-.844.609-1.453T9 8.813q.844 0 1.453.609T11.063 10.875q0 .844-.609 1.453T9 12.938Zm0-1.387q.281 0 .478-.197T9.675 10.875q0-.281-.197-.478T9 10.2q-.281 0-.478.197T8.325 10.875q0 .281.197 .478T9 11.55Zm6.75 5.7v-10.5h1.5v10.5h-1.5Zm3 0v-10.5h1.5v10.5h-1.5ZM9 10.875Zm0 4.875Z';
   list: string =
-    'M4.8 16.8v-1.6h14.4v1.6H4.8Zm0-4v-1.6h14.4v1.6H4.8Zm0-4v-1.6h14.4v1.6H4.8Z'
+    'M4.8 16.8v-1.6h14.4v1.6H4.8Zm0-4v-1.6h14.4v1.6H4.8Zm0-4v-1.6h14.4v1.6H4.8Z';
 
   constructor(
     private dialog: MatDialog,
     private DbService: DbService,
   ) {
-    DbService.loadDatabase();
+    this.DbService.cardData$.subscribe((data) => {
+      this.userCards = data;
+    });
   }
-
 
   ngAfterViewInit() {
     this.element?.nativeElement
@@ -93,12 +94,7 @@ export class AppComponent {
       .firstChild.setAttribute('d', this.list);
   }
 
-  private async loadCards(): Promise<void> {
-    this.userCards = await this.DbService.loadCardData();
-  }
-
   public onFormButtonClick(): void {
-    this.loadCards();
     this.dialog.open(FormDialog);
     this.formOpen = !this.formOpen;
   }

@@ -14,37 +14,53 @@
 
       <!-- Viewing mode toggle div -->
       <div fxLayout="column" class="menu-mode">
-          <!-- 
+        <!-- 
             Angular toggle here from grid to list view
           -->
 
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">  
-
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">
           <mat-icon class="login-icon"> person </mat-icon>
 
           <!-- Login dialog-->
           <login *ngIf="!loggedIn"></login>
+        </div>
       </div>
     </div>
-  </div>
 
     <!-- Count + Controls div -->
     <div class="count">
       <p class="count-title">
         Your collection contains {{ userCards?.length ?? 0 }} cards.
-        <mat-icon class="info-icon" matTooltip="Click card for more info.">info</mat-icon>
+        <mat-icon class="info-icon" matTooltip="Click card for more info."
+          >info</mat-icon
+        >
       </p>
-    
-      <div class="controls" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">
-        <div class="size-control" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+
+      <div
+        class="controls"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        fxLayoutGap="40px"
+      >
+        <div
+          class="size-control"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxLayoutGap="5px"
+        >
           <mat-icon>view_comfy</mat-icon>
           <mat-slider min="100" max="400" step="5">
-            <input matSliderThumb value="200" #cardSize>
+            <input matSliderThumb value="200" #cardSize />
           </mat-slider>
           <mat-icon>view_module</mat-icon>
         </div>
-    
-        <div class="view-toggle" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+
+        <div
+          class="view-toggle"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxLayoutGap="30px"
+        >
           <mat-slide-toggle
             #cardViewElement
             class="menu-slide"
@@ -54,13 +70,20 @@
           </mat-slide-toggle>
         </div>
       </div>
-    </div>    
+    </div>
 
     <!-- Cards -->
     <div *ngIf="cardView">
       <div class="md-padding row-wrap row-gap-center-start">
-        <div class="card-row"[ngStyle]="{'minWidth.px': convertStringToNumber(cardSize.value)}" *ngFor="let card of userCards">
-          <card [width]="convertStringToNumber(cardSize.value)" [card]="card"></card>
+        <div
+          class="card-row"
+          [ngStyle]="{ 'minWidth.px': convertStringToNumber(cardSize.value) }"
+          *ngFor="let card of userCards"
+        >
+          <card
+            [width]="convertStringToNumber(cardSize.value)"
+            [card]="card"
+          ></card>
         </div>
       </div>
     </div>

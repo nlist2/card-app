@@ -10,18 +10,23 @@ import {
   getFirestore,
   setDoc,
 } from 'firebase/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { firebaseConfig, psaSettings } from '../environment';
+import { Subject } from 'rxjs';
+import { firebaseConfig } from '../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DbService {
-  cardData: CollectionReference<DocumentData, DocumentData>;
-  cardInfoForm: FormGroup;
-  userCards = [] as DocumentData[];
+  cardData: CollectionReference<DocumentData>;
+  userCards: DocumentData[] = [];
+  private cardDataSubject = new Subject<DocumentData[]>();
+  cardData$ = this.cardDataSubject.asObservable();
   public loggedIn: boolean = false;
   response: any;
+
+  constructor() {
+    this.loadDatabase(); // Ensure the database is loaded when the service is instantiated
+  }
 
   public loadDatabase(): void {
     const app = initializeApp(firebaseConfig);
@@ -29,37 +34,55 @@ export class DbService {
     this.cardData = collection(db, 'test');
   }
 
-  public onFormSubmit(
+  public async onFormSubmit(
     playerName: string,
     cardNumber: string,
     cardCompany: string,
+    psaCert: any,
     imageURL?: string,
-  ): void {
-    setDoc(doc(this.cardData, playerName), {
+  ): Promise<void> {
+    if (!this.cardData) {
+      console.error('Card data collection is not initialized.');
+      return;
+    }
+
+    await setDoc(doc(this.cardData, playerName), {
       playerName: playerName,
       cardNumber: cardNumber,
       cardCompany: cardCompany,
+      psaCert: psaCert,
       imageURL: imageURL ?? '',
     });
 
-    this.loadCardData();
+    await this.loadCardData(); // Reload data after submitting
   }
 
-  public async loadCardData(): Promise<DocumentData[]> {
+  public async loadCardData(): Promise<void> {
+    if (!this.cardData) {
+      console.error('Card data collection is not initialized.');
+      return;
+    }
+
     const querySnapshot = await getDocs(this.cardData);
-    // this might cause problems later
     this.userCards = [];
     querySnapshot.forEach((doc) => {
-      this.userCards.indexOf(doc.data()) === -1
-        ? this.userCards.push(doc.data())
-        : console.log('This item already exists');
+      if (this.userCards.indexOf(doc.data()) === -1) {
+        this.userCards.push(doc.data());
+      } else {
+        console.log('This item already exists');
+      }
     });
 
-    return this.userCards;
+    this.cardDataSubject.next(this.userCards); // Notify subscribers
   }
 
   public async deleteCard(playerName: string): Promise<void> {
+    if (!this.cardData) {
+      console.error('Card data collection is not initialized.');
+      return;
+    }
+
     await deleteDoc(doc(this.cardData, playerName));
-    this.loadCardData();
+    await this.loadCardData(); // Reload data after deletion
   }
 }
