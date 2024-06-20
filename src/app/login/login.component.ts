@@ -1,65 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialogRef } from '@angular/material/dialog';
 import { DbService } from '../db.service';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
   standalone: true,
   styleUrls: ['./login.component.css'],
-  imports: [MatDialogModule, MatButtonModule, MatFormFieldModule],
-})
-export class LoginComponent {
-  public loggedIn: boolean = false;
-
-  constructor(
-    public dialog: MatDialog,
-    private DbService: DbService,
-  ) {
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.DbService.loadCardData();
-    });
-  }
-}
-
-@Component({
-  selector: 'dialog-content-example-dialog',
-  templateUrl: 'dialog.html',
-  styleUrls: ['./login.component.css'],
-  standalone: true,
-  providers: [],
   imports: [
     MatDialogModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
   ],
 })
-export class DialogContentExampleDialog implements OnInit {
-  loginForm: FormGroup;
+export class LoginComponent {
+  public loginForm: FormGroup;
 
   constructor(
-    private dialogRef: MatDialogRef<DialogContentExampleDialog>,
+    private dbService: DbService,
     private formBuilder: FormBuilder,
-  ) {}
-
-  ngOnInit() {
+    private loginService: LoginService,
+  ) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
-  login() {
-    // Implement your login logic here if needed
-    // For example:
-    // if (this.loginForm.valid) { ... }
+  async login(): Promise<void> {
+    const username = this.loginForm.get('username')?.value;
+    const password = this.loginForm.get('password')?.value;
+
+    const loggedIn = await this.dbService.signIn(username, password);
+    this.loginService.setLoggedIn(loggedIn);
+    if (loggedIn) {
+      this.loginService.setUsername(username);
+      this.dbService.loadCardData();
+    }
   }
 }

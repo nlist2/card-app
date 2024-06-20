@@ -214,3 +214,11 @@ main {
   margin-left: auto; /* Pushes .view-toggle to the right */
   margin-right: 40px;
 }
+
+.trash-button {
+  box-shadow: none;
+}
+
+.trash-button:hover {
+  box-shadow: none;
+}

@@ -20,9 +20,6 @@
 
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">
           <mat-icon class="login-icon"> person </mat-icon>
-
-          <!-- Login dialog-->
-          <login *ngIf="!loggedIn"></login>
         </div>
       </div>
     </div>
@@ -72,6 +69,9 @@
       </div>
     </div>
 
+    <!-- Login dialog-->
+    <login *ngIf="!loggedIn"></login>
+
     <!-- Cards -->
     <div *ngIf="cardView">
       <div class="md-padding row-wrap row-gap-center-start">
@@ -95,6 +95,21 @@
         [dataSource]="userCards"
         class="mat-elevation-z8 demo-table"
       >
+        <!-- Delete Column -->
+        <ng-container matColumnDef="demo-delete">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              class="trash-button"
+              mat-mini-fab
+              color="warn"
+              (click)="removePlayer(element['playerName'])"
+            >
+              <mat-icon> delete </mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
         <!-- Position Column -->
         <ng-container matColumnDef="demo-position">
           <th mat-header-cell *matHeaderCellDef>No.</th>

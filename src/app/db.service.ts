@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from 'firebase/app';
+import { FirebaseApp, initializeApp } from 'firebase/app';
 import {
   CollectionReference,
   DocumentData,
@@ -9,9 +9,12 @@ import {
   deleteDoc,
   getFirestore,
   setDoc,
+  Firestore,
 } from 'firebase/firestore';
 import { Subject } from 'rxjs';
 import { firebaseConfig } from '../environment';
+import { Auth, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { LoginService } from './login/login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,17 +24,25 @@ export class DbService {
   userCards: DocumentData[] = [];
   private cardDataSubject = new Subject<DocumentData[]>();
   cardData$ = this.cardDataSubject.asObservable();
-  public loggedIn: boolean = false;
   response: any;
+  private auth: Auth;
+  loggedIn: boolean = false;
+  private username: string = '';
+  private db: Firestore;
+  private app: FirebaseApp;
 
-  constructor() {
-    this.loadDatabase(); // Ensure the database is loaded when the service is instantiated
-  }
+  constructor(private loginService: LoginService) {
+    this.loginService.loggedIn$.subscribe((loggedIn: boolean) => {
+      this.loggedIn = loggedIn;
+    });
 
-  public loadDatabase(): void {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    this.cardData = collection(db, 'test');
+    this.loginService.username$.subscribe((username: string) => {
+      this.username = username;
+    });
+
+    this.app = initializeApp(firebaseConfig);
+    this.db = getFirestore(this.app);
+    this.auth = getAuth(this.app);
   }
 
   public async onFormSubmit(
@@ -58,6 +69,7 @@ export class DbService {
   }
 
   public async loadCardData(): Promise<void> {
+    this.cardData = collection(this.db, this.username);
     if (!this.cardData) {
       console.error('Card data collection is not initialized.');
       return;
@@ -84,5 +96,18 @@ export class DbService {
 
     await deleteDoc(doc(this.cardData, playerName));
     await this.loadCardData(); // Reload data after deletion
+  }
+
+  public async signIn(username: string, password: string): Promise<boolean> {
+    return signInWithEmailAndPassword(this.auth, username, password)
+      .then((userCredential) => {
+        // Successful sign-in
+        return true;
+      })
+      .catch((error) => {
+        // Failed sign-in
+        console.error(error);
+        return false;
+      });
   }
 }

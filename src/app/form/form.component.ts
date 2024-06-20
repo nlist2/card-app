@@ -13,7 +13,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { MatDialogRef } from '@angular/material/dialog';
 import { psaToken } from '../../environment';
 import { DbService } from '../db.service';
 
@@ -83,7 +82,6 @@ export class FormDialog {
         (data) => {
           this.response = data; // Handle the response data
           this.card = data;
-          console.log(data);
 
           this.cardForm.patchValue({
             playerName: data.PSACert.Subject,
@@ -113,14 +111,13 @@ export class FormDialog {
       .subscribe(
         (data) => {
           this.response = data; // Handle the response data
-          console.log(data);
           data.forEach((element: { ImageURL: any; IsFrontImage: any }) => {
             if (element.IsFrontImage) {
               this.dbService.onFormSubmit(
                 values.playerName,
                 values.cardNumber,
                 values.cardCompany,
-                data.PSACert,
+                this.card.PSACert,
                 element.ImageURL,
               );
             }
