@@ -27,16 +27,6 @@
 
   position: relative;
   display: inline-block;
-
-  ::after {
-    content: "";
-    position: absolute;
-    bottom: -15px; /* Adjust as needed */
-    left: 0;
-    width: 150px;
-    height: 4px; /* Adjust thickness as needed */
-    background-color: black;
-  }
 }
 
 .bottom-right-button {
@@ -142,10 +132,29 @@ main {
     flex-direction: column;
     width: max-content;
   }
+
+  .count {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .size-control,
+  .view-toggle {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .size-control mat-slider {
+    width: 100%; /* Adjust as needed */
+  }
 }
 
 .count {
-  margin-top: 10px;
   display: flex;
   align-items: center; /* This aligns the icon and text vertically in the middle */
 }
@@ -181,4 +190,27 @@ main {
 
 .login-icon {
   transform: scale(1.8);
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.count-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.05em;
+  margin-right: auto; /* Pushes .controls to the right */
+}
+
+.size-control mat-slider {
+  width: 100px; /* Adjust as needed */
+}
+
+.view-toggle {
+  margin-left: auto; /* Pushes .view-toggle to the right */
+  margin-right: 40px;
 }

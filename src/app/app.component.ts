@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,6 +30,7 @@ import { DbService } from './db.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
+import { MatSlider, MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +51,7 @@ import { MatTableModule } from '@angular/material/table';
     LoginComponent,
     MatFormFieldModule,
     MatInputModule,
+    MatSliderModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -63,6 +65,8 @@ export class AppComponent {
   public loggedIn: boolean = false;
   public cardView: boolean = true;
   response: any;
+  cardSize: any;
+
   @ViewChild('cardViewElement', { read: ElementRef }) element:
     | ElementRef
     | undefined;
@@ -78,6 +82,7 @@ export class AppComponent {
   ) {
     DbService.loadDatabase();
   }
+
 
   ngAfterViewInit() {
     this.element?.nativeElement
@@ -100,6 +105,10 @@ export class AppComponent {
 
   public updateView(): void {
     this.cardView = !this.cardView;
+  }
+
+  convertStringToNumber(value: string) {
+    return parseFloat(value); // Use parseFloat for floating-point numbers
   }
 
   displayedColumns: string[] = ['demo-position', 'demo-name', 'demo-weight'];

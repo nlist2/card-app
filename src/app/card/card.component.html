@@ -1,4 +1,4 @@
-<div class="card" (click)="toggleFlip()">
+<div class="card" [ngStyle]="{'width.px': width}" (click)="toggleFlip()">
   <div class="card-inner" [class.flipped]="isFlipped">
     <div class="card-front">
       <mat-card class="example-card">
@@ -34,7 +34,7 @@
           </button>
         </div>
         <div class="card-bottom" fxLayout="column">
-          <h1>{{ card["playerName"] }}</h1>
+          <h1 class="player-name">{{ card["playerName"] }}</h1>
           <b>#{{ card["cardNumber"] }}</b>
           <br />
           {{ card["cardCompany"] }}

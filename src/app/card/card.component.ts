@@ -6,6 +6,7 @@ import { DocumentData } from 'firebase/firestore';
 import { MatButtonModule } from '@angular/material/button';
 import { DbService } from '../db.service';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
@@ -19,10 +20,13 @@ import { MatIconModule } from '@angular/material/icon';
     UpperCasePipe,
     MatButtonModule,
     MatIconModule,
+    CommonModule
   ],
 })
 export class CardComponent {
   @Input() card: DocumentData;
+  @Input() size: string;
+  @Input() width: number;
   private DbService: DbService;
   public isFlipped: boolean = false;
 
