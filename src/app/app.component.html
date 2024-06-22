@@ -25,7 +25,7 @@
     </div>
 
     <!-- Count + Controls div -->
-    <div class="count">
+    <div class="count" [style.visibility]="loggedIn ? 'visible' : 'hidden'">
       <p class="count-title">
         Your collection contains {{ userCards?.length ?? 0 }} cards.
         <mat-icon class="info-icon" matTooltip="Click card for more info."
@@ -46,7 +46,7 @@
           fxLayoutGap="5px"
         >
           <mat-icon>view_comfy</mat-icon>
-          <mat-slider min="100" max="400" step="5">
+          <mat-slider [disabled]="isMobileLayout" min="100" max="400" step="5">
             <input matSliderThumb value="200" #cardSize />
           </mat-slider>
           <mat-icon>view_module</mat-icon>
@@ -70,7 +70,7 @@
     </div>
 
     <!-- Login dialog-->
-    <login *ngIf="!loggedIn"></login>
+    <login class="login" *ngIf="!loggedIn"></login>
 
     <!-- Cards -->
     <div *ngIf="cardView">
@@ -91,6 +91,7 @@
     <!-- List View -->
     <div *ngIf="!cardView">
       <table
+        [style.visibility]="loggedIn ? 'visible' : 'hidden'"
         mat-table
         [dataSource]="userCards"
         class="mat-elevation-z8 demo-table"
@@ -142,6 +143,7 @@
 
   <!-- Static add button -->
   <button
+    [style.visibility]="loggedIn ? 'visible' : 'hidden'"
     mat-fab
     color="black"
     (click)="onFormButtonClick()"

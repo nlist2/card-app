@@ -58,6 +58,7 @@ export class AppComponent {
   public cardView: boolean = true;
   response: any;
   cardSize: any;
+  public isMobileLayout: boolean = false;
 
   @ViewChild('cardViewElement', { read: ElementRef }) element:
     | ElementRef
@@ -84,6 +85,12 @@ export class AppComponent {
     this.element?.nativeElement
       .querySelector('.mdc-switch__icon--off')
       .firstChild.setAttribute('d', list);
+
+    if (typeof window !== 'undefined') {
+      if (window.screen.width === 360) {
+        this.isMobileLayout = true;
+      }
+    }
   }
 
   public onFormButtonClick(): void {

@@ -35,3 +35,8 @@
 mat-form-field::selection {
   color: white;
 }
+
+:host {
+  margin-left: auto;
+  margin-right: auto;
+}

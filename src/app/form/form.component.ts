@@ -117,7 +117,7 @@ export class FormDialog {
                 values.playerName,
                 values.cardNumber,
                 values.cardCompany,
-                this.card.PSACert,
+                this.card?.PSACert ?? 'N/A',
                 element.ImageURL,
               );
             }
@@ -129,7 +129,7 @@ export class FormDialog {
             values.playerName,
             values.cardNumber,
             values.cardCompany,
-            this.card.PSACert,
+            this.card?.PSACert ?? 'N/A',
           );
         },
       );
