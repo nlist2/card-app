@@ -31,6 +31,7 @@ export class CardComponent {
   @Input() width: number;
   private DbService: DbService;
   public isFlipped: boolean = false;
+  public noImage: boolean;
 
   constructor(
     DbService: DbService,
@@ -40,20 +41,23 @@ export class CardComponent {
   }
 
   ngOnInit() {
+    this.noImage = this.card['imageURL'] === ''
     this.isFlipped = this.card['imageURL'] === '';
   }
 
   toggleFlip() {
-    this.isFlipped = !this.isFlipped;
+    if (!this.noImage) {
+      this.isFlipped = !this.isFlipped;
+    }
   }
 
   public deletePlayer(player: string): void {
-    this.isFlipped = !this.isFlipped;
+    this.toggleFlip();
     this.DbService.deleteCard(player);
   }
 
   public getCardMore(card: DocumentData): void {
-    this.isFlipped = !this.isFlipped;
+    this.toggleFlip();
     this.dialog.open(CardDialogComponent, {
       data: card,
     });
