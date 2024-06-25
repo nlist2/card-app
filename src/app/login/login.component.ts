@@ -50,4 +50,10 @@ export class LoginComponent {
       this.dbService.loadCardData();
     }
   }
+
+  async demo(): Promise<void> {
+    this.loginService.setLoggedIn(true);
+    this.loginService.setUsername('test');
+    this.dbService.loadCardData();
+  }
 }

@@ -23,12 +23,21 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlider, MatSliderModule } from '@angular/material/slider';
 import { card, list } from '../environment';
 import { LoginService } from './login/login.service';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
+    MatMenuModule,
     MatTableModule,
     MatCardModule,
     MatSlideToggleModule,
@@ -45,6 +54,16 @@ import { LoginService } from './login/login.service';
     MatInputModule,
     MatSliderModule,
   ],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'),
+      ),
+    ]),
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -59,6 +78,11 @@ export class AppComponent {
   response: any;
   cardSize: any;
   public isMobileLayout: boolean = false;
+  dataSource: DocumentData[];
+  columnsToDisplay = ['cardNumber', 'playerName', 'cardCompany'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
+  expandedElement: DocumentData[] | null;
+  public username: string;
 
   @ViewChild('cardViewElement', { read: ElementRef }) element:
     | ElementRef
@@ -75,6 +99,10 @@ export class AppComponent {
 
     this.loginService.loggedIn$.subscribe((loggedIn: boolean) => {
       this.loggedIn = loggedIn;
+    });
+
+    this.loginService.username$.subscribe((username: string) => {
+      this.username = username;
     });
   }
 
@@ -109,11 +137,4 @@ export class AppComponent {
   removePlayer(player: string) {
     this.DbService.deleteCard(player);
   }
-
-  displayedColumns: string[] = [
-    'demo-delete',
-    'demo-position',
-    'demo-name',
-    'demo-weight',
-  ];
 }
