@@ -20,7 +20,7 @@ export class LoginService {
   }
 
   logout(): void {
-    this.usernameSubject.next("");
+    this.usernameSubject.next('');
     this.loggedInSubject.next(false);
   }
 }
