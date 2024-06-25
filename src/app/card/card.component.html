@@ -19,14 +19,22 @@
     </div>
 
     <div class="card-back">
-      <div fxLayout="row">
+      <button
+        mat-mini-fab
+        class="trash-button-back"
+        color="accent"
+        (click)="deletePlayer(card['playerName'])"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <div fxLayout="column">
         <button
-          mat-mini-fab
-          class="trash-button-back"
+          class="more-button"
+          mat-stroked-button
           color="accent"
-          (click)="deletePlayer(card['playerName'])"
+          (click)="getCardMore(card)"
         >
-          <mat-icon>delete</mat-icon>
+          More
         </button>
         <div class="card-bottom" fxLayout="column">
           <h1 class="player-name">{{ card["playerName"] }}</h1>

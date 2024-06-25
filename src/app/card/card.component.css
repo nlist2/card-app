@@ -98,7 +98,7 @@ h1 {
   cursor: pointer;
 }
 
-.card-front:hover:not(.trash-button-front) {
+.card-front:hover {
   animation: sway 2s ease-in-out infinite; /* Continuous rotation effect */
   animation-duration: 1s; /* Duration of the enlargement animation */
   animation-fill-mode: forwards; /* Keep the element enlarged after the animation ends */
@@ -138,4 +138,11 @@ h1 {
 
 .player-name {
   word-wrap: break-word;
+}
+
+.more-button {
+  margin: 10px;
+  float: right;
+  color: black;
+  background-color: white;
 }

@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { DbService } from '../db.service';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { CardDialogComponent } from './card-dialog/card-dialog.component';
 
 @Component({
   standalone: true,
@@ -30,12 +32,15 @@ export class CardComponent {
   private DbService: DbService;
   public isFlipped: boolean = false;
 
-  constructor(DbService: DbService) {
+  constructor(
+    DbService: DbService,
+    public dialog: MatDialog,
+  ) {
     this.DbService = DbService;
   }
 
   ngOnInit() {
-    this.isFlipped = this.card['imageURL'] == '' ? true : false;
+    this.isFlipped = this.card['imageURL'] === '';
   }
 
   toggleFlip() {
@@ -43,6 +48,14 @@ export class CardComponent {
   }
 
   public deletePlayer(player: string): void {
+    this.isFlipped = !this.isFlipped;
     this.DbService.deleteCard(player);
+  }
+
+  public getCardMore(card: DocumentData): void {
+    this.isFlipped = !this.isFlipped;
+    this.dialog.open(CardDialogComponent, {
+      data: card,
+    });
   }
 }

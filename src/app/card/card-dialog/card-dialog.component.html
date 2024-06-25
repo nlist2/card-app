@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Card Information</h1>
+<div mat-dialog-content>
+  <div fxLayout="row" fxLayoutGap="20px" class="example-element-description">
+    <div fxLayout="column" fxLayoutGap="20px" class="psa-label">
+      <div>
+        <a
+          class="psa-link"
+          href="https://www.psacard.com/cert/{{ data['psaCert'].CertNumber }}"
+        >
+          <div fxLayout="column" fxLayoutGap="0px" class="psa-link-label">
+            <hr style="height: 5pt; visibility: hidden" />
+            <div class="cert-label">
+              <b>PSA Certification Verification</b>
+            </div>
+            <div>
+              <i> #{{ data["psaCert"].CertNumber }} </i>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        {{ data["psaCert"].Subject }}
+      </div>
+
+      <div class="card-info">
+        {{ data["psaCert"].CardNumber }}
+      </div>
+    </div>
+
+    <div class="population-info">
+      <h2>Population</h2>
+      <p class="pop-num">
+        {{ data["psaCert"].TotalPopulation }}
+      </p>
+    </div>
+
+    <div class="higher-info">
+      <h2>Population Higher</h2>
+      <p class="pop-num">
+        {{ data["psaCert"].PopulationHigher }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
