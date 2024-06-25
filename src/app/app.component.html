@@ -34,9 +34,11 @@
             </span>
             <mat-icon class="login-icon" iconPositionEnd> person </mat-icon>
           </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="logout()">Log Out</button>
-            <button mat-menu-item>Other</button>
+          <mat-menu class="login-menu" #menu="matMenu">
+            <button mat-menu-item>Account</button>
+            <button mat-menu-item (click)="logout()" style="color: red">
+              Log Out
+            </button>
           </mat-menu>
         </div>
       </div>
@@ -127,14 +129,7 @@
             &nbsp;
           </th>
           <td mat-cell *matCellDef="let element">
-            <button
-              class="trash-button"
-              mat-mini-fab
-              color="warn"
-              (click)="removePlayer(element['playerName'])"
-            >
-              <mat-icon> delete </mat-icon>
-            </button>
+            <!-- Expand row button -->
             <button
               mat-icon-button
               aria-label="expand row"
@@ -150,6 +145,16 @@
                     : "keyboard_arrow_down"
                 }}
               </mat-icon>
+            </button>
+
+            <!-- Delete card button -->
+            <button
+              class="trash-button"
+              mat-mini-fab
+              color="warn"
+              (click)="removePlayer(element['playerName'])"
+            >
+              <mat-icon> delete </mat-icon>
             </button>
           </td>
         </ng-container>

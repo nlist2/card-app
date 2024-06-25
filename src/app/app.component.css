@@ -193,10 +193,10 @@ main {
 
 .trash-button {
   box-shadow: none;
-}
 
-.trash-button:hover {
-  box-shadow: none;
+  &.trash-button:hover {
+    box-shadow: none;
+  }
 }
 
 table {
@@ -240,6 +240,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   & .login-button-int {
     padding: 20px;
     border-radius: 15px;
+  }
+
+  & .login-menu {
   }
 }
 
