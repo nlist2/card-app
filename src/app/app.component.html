@@ -172,40 +172,73 @@
                 element === expandedElement ? 'expanded' : 'collapsed'
               "
             >
-              <div class="example-element-description">
-                <img
+              <div
+                fxLayout="row"
+                fxLayoutGap="20px"
+                class="example-element-description"
+              >
+                <!-- 
+
+                                <div class="card-image">
+                  <img
                   style="max-width: 100px; border-radius: 8px"
                   src="{{ element['imageURL'] }}"
                   alt="Player Image"
                   class="card-image"
                 />
+                </div>
+                -->
 
-                <a
-                  class="psa-link"
-                  href="https://www.psacard.com/cert/{{
-                    element['psaCert'].CertNumber
-                  }}"
-                >
-                  <div
-                    class="psa-link-label"
-                    style="
-                      background-image: url(&quot;https://i.psacard.com/psacard/images/cert/psa-label-new-22.png&quot;);
-                    "
-                  >
-                    <h4>PSA Certification Verification</h4>
-                    # {{ element["psaCert"].CertNumber }}
+                <div fxLayout="column" fxLayoutGap="20px" class="psa-label">
+                  <div>
+                    <a
+                      class="psa-link"
+                      href="https://www.psacard.com/cert/{{
+                        element['psaCert'].CertNumber
+                      }}"
+                    >
+                      <div
+                        fxLayout="column"
+                        fxLayoutGap="0px"
+                        class="psa-link-label"
+                      >
+                        <hr style="height: 5pt; visibility: hidden" />
+                        <div class="cert-label">
+                          <b>PSA Certification Verification</b>
+                        </div>
+                        <div>
+                          <i> #{{ element["psaCert"].CertNumber }} </i>
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                </a>
 
-                {{ element["psaCert"].Subject }}
-                {{ element["psaCert"].CardGrade }}
-                {{ element["psaCert"].CardNumber }}
-                {{ element["psaCert"].Category }}
-                {{ element["psaCert"].CertNumber }}
-                {{ element["psaCert"].PopulationHigher }}
-                {{ element["psaCert"].TotalPopulation }}
-                {{ element["psaCert"].Year }}
-                {{ element["psaCert"].Brand }}
+                  <div>
+                    {{ element["psaCert"].Subject }}
+                  </div>
+
+                  <div class="card-info">
+                    {{ element["psaCert"].CardNumber }}
+                    {{ element["psaCert"].Category }}
+                    {{ element["psaCert"].CertNumber }}
+                    {{ element["psaCert"].Year }}
+                    {{ element["psaCert"].Brand }}
+                  </div>
+                </div>
+
+                <div class="population-info">
+                  <h2>Population</h2>
+                  <p class="pop-num">
+                    {{ element["psaCert"].TotalPopulation }}
+                  </p>
+                </div>
+
+                <div class="higher-info">
+                  <h2>Population Higher</h2>
+                  <p class="pop-num">
+                    {{ element["psaCert"].PopulationHigher }}
+                  </p>
+                </div>
               </div>
             </div>
           </td>
