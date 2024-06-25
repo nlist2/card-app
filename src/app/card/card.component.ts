@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CardDialogComponent } from './card-dialog/card-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -34,6 +35,7 @@ export class CardComponent {
   public noImage: boolean;
 
   constructor(
+    public _snackBar: MatSnackBar,
     DbService: DbService,
     public dialog: MatDialog,
   ) {
@@ -41,7 +43,7 @@ export class CardComponent {
   }
 
   ngOnInit() {
-    this.noImage = this.card['imageURL'] === ''
+    this.noImage = this.card['imageURL'] === '';
     this.isFlipped = this.card['imageURL'] === '';
   }
 
@@ -54,6 +56,10 @@ export class CardComponent {
   public deletePlayer(player: string): void {
     this.toggleFlip();
     this.DbService.deleteCard(player);
+    const plyr = 'Deleted ' + player + '!';
+    this._snackBar.open(plyr, undefined, {
+      duration: 2000,
+    });
   }
 
   public getCardMore(card: DocumentData): void {

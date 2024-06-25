@@ -31,6 +31,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -89,6 +90,7 @@ export class AppComponent {
     | undefined;
 
   constructor(
+    public _snackBar: MatSnackBar,
     private dialog: MatDialog,
     private DbService: DbService,
     private loginService: LoginService,
@@ -136,9 +138,16 @@ export class AppComponent {
 
   removePlayer(player: string) {
     this.DbService.deleteCard(player);
+    const plyr = 'Deleted ' + player + '!';
+    this._snackBar.open(plyr, undefined, {
+      duration: 2000,
+    });
   }
 
   logout() {
     this.loginService.logout();
+    this._snackBar.open('Successfully logged out!', undefined, {
+      duration: 2000,
+    });
   }
 }

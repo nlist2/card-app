@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DbService } from '../db.service';
 import { LoginService } from './login.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { config } from 'process';
 
 @Component({
   selector: 'login',
@@ -32,6 +34,7 @@ export class LoginComponent {
     private dbService: DbService,
     private formBuilder: FormBuilder,
     private loginService: LoginService,
+    public _snackBar: MatSnackBar,
   ) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -46,11 +49,19 @@ export class LoginComponent {
     const loggedIn = await this.dbService.signIn(username, password);
     this.loginService.setLoggedIn(loggedIn);
     if (loggedIn) {
+      this.openSnackBar('Log-in successful!');
       this.loginService.setUsername(username);
       this.dbService.loadCardData();
+    } else {
+      this.openSnackBar('Log-in failed. Please try again.');
     }
   }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, undefined, {
+      duration: 2000,
+    });
+  }
   async demo(): Promise<void> {
     this.loginService.setLoggedIn(true);
     this.loginService.setUsername('test');
