@@ -24,12 +24,12 @@
           fxLayoutAlign="center center"
           fxLayoutGap="40px"
         >
-          <button mat-button [matMenuTriggerFor]="menu">
-            {{ username }}
-            <mat-icon class="login-icon"> person </mat-icon>
+          <button class="login-button-int" mat-button [matMenuTriggerFor]="menu">
+            <span> {{ username == "" || username == null ? "Login " : username }} </span>
+            <mat-icon class="login-icon" iconPositionEnd> person </mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>Log Out</button>
+            <button mat-menu-item (click)="logout()">Log Out</button>
             <button mat-menu-item>Other</button>
           </mat-menu>
         </div>
@@ -84,8 +84,8 @@
     <!-- Login dialog-->
     <login class="login" *ngIf="!loggedIn"></login>
 
-    <!-- Cards -->
-    <div *ngIf="cardView">
+    <!-- Card View -->
+    <div *ngIf="cardView && loggedIn">
       <div class="md-padding row-wrap row-gap-center-start">
         <div
           class="card-row"
@@ -101,7 +101,7 @@
     </div>
 
     <!-- List View -->
-    <div *ngIf="!cardView">
+    <div *ngIf="!cardView && loggedIn">
       <table
         mat-table
         [dataSource]="userCards"
@@ -163,11 +163,28 @@
             >
               <div class="example-element-description">
                 <img
-                  style="max-width: 200px"
+                  style="max-width: 100px; border-radius: 8px;"
                   src="{{ element['imageURL'] }}"
                   alt="Player Image"
                   class="card-image"
                 />
+
+                <a class="psa-link" href="https://www.psacard.com/cert/{{ element['psaCert'].CertNumber }}">
+                  <div class="psa-link-label" style="background-image: url(&quot;https://i.psacard.com/psacard/images/cert/psa-label-new-22.png&quot;);">
+                    <h4>PSA Certification Verification</h4>
+                    # {{ element['psaCert'].CertNumber }}
+                  </div>
+                </a>
+
+                {{ element['psaCert'].Subject }}
+                {{ element['psaCert'].CardGrade }}
+                {{ element['psaCert'].CardNumber }}
+                {{ element['psaCert'].Category }}
+                {{ element['psaCert'].CertNumber }}
+                {{ element['psaCert'].PopulationHigher }}
+                {{ element['psaCert'].TotalPopulation }}
+                {{ element['psaCert'].Year }}
+                {{ element['psaCert'].Brand }}
               </div>
             </div>
           </td>

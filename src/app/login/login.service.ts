@@ -18,4 +18,9 @@ export class LoginService {
   setUsername(value: string): void {
     this.usernameSubject.next(value);
   }
+
+  logout(): void {
+    this.usernameSubject.next("");
+    this.loggedInSubject.next(false);
+  }
 }

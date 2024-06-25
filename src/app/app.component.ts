@@ -137,4 +137,8 @@ export class AppComponent {
   removePlayer(player: string) {
     this.DbService.deleteCard(player);
   }
+
+  logout() {
+    this.loginService.logout();
+  }
 }
