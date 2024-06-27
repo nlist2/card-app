@@ -14,7 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { psaToken } from '../../environment';
+import { CommonModule } from '@angular/common';
 import { DbService } from '../db.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'form',
@@ -28,6 +30,8 @@ import { DbService } from '../db.service';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
+    CommonModule,
+    MatIconModule
   ],
 })
 export class FormDialog {
@@ -36,6 +40,8 @@ export class FormDialog {
   response: JSON;
   private dbService: DbService;
   private card: any;
+  public query: string;
+  public priceResults: any[] = [];
 
   constructor(
     private DbService: DbService,
@@ -44,11 +50,8 @@ export class FormDialog {
     private dialog: MatDialog,
   ) {
     this.cardForm = this.formBuilder.group({
-      certNumber: ['', Validators.required],
-      playerName: ['', Validators.required],
-      cardNumber: ['', Validators.required],
-      cardGrade: ['', Validators.required],
-      cardCompany: ['', Validators.required],
+      certNumber: [''],
+      userQuery: [''],
     });
 
     this.dbService = DbService;
@@ -56,8 +59,8 @@ export class FormDialog {
     this.subscription = this.cardForm
       .get('certNumber')!
       .valueChanges.pipe(
-        map((value) => value.toString()), // Ensure the value is treated as a string
-        filter((value) => value.length === 8), // Filter so the function only runs when length is exactly 8
+        map((value) => value.toString()),
+        filter((value) => value.length === 8),
       )
       .subscribe((value) => {
         this.fetchData(value);
@@ -65,7 +68,7 @@ export class FormDialog {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe(); // Prevent memory leaks
+    this.subscription.unsubscribe();
   }
 
   private fetchData(certNumber: string): void {
@@ -80,15 +83,12 @@ export class FormDialog {
       )
       .subscribe(
         (data) => {
-          this.response = data; // Handle the response data
+          this.response = data;
           this.card = data;
+          this.query =  data.PSACert.Year + " " + data.PSACert.Subject + " " + data.PSACert.Brand;
 
-          this.cardForm.patchValue({
-            playerName: data.PSACert.Subject,
-            cardGrade: data.PSACert.GradeDescription,
-            cardNumber: data.PSACert.CardNumber,
-            cardCompany: data.PSACert.Brand,
-          });
+          console.log(data.PSACert);
+          this.getPrices(this.query);
         },
         (error) => {
           console.error('There was an error!', error);
@@ -96,28 +96,45 @@ export class FormDialog {
       );
   }
 
+  public getPrices(query: string): void {
+    this.http
+    .get<any>(
+      `https://www.sportscardspro.com/search-products?q=${query}&type=prices`
+    )
+    .subscribe(
+      (data) => {
+        // Data response
+        console.log(query);
+        this.priceResults = data.products?.slice(0,3);
+      },
+      (error) => {
+        console.error('There was an error!', error);
+      },
+    );
+
+  }
+
   public submitForm(): void {
     const headers = new HttpHeaders({
       Authorization: psaToken,
     });
-
-    const values = this.cardForm.value;
+    this.card = this.card.PSACert;
 
     this.http
       .get<any>(
-        `https://api.psacard.com/publicapi/cert/GetImagesByCertNumber/${values.certNumber}`,
+        `https://api.psacard.com/publicapi/cert/GetImagesByCertNumber/${this.card.CertNumber}`,
         { headers },
       )
       .subscribe(
         (data) => {
-          this.response = data; // Handle the response data
+          this.response = data;
           data.forEach((element: { ImageURL: any; IsFrontImage: any }) => {
             if (element.IsFrontImage) {
               this.dbService.onFormSubmit(
-                values.playerName,
-                values.cardNumber,
-                values.cardCompany,
-                this.card?.PSACert ?? 'N/A',
+                this.card.Subject ?? "",
+                this.card.CardNumber ?? "",
+                this.card.Brand ?? "",
+                this.card ?? 'N/A',
                 element.ImageURL,
               );
             }
@@ -125,12 +142,6 @@ export class FormDialog {
         },
         (error) => {
           console.error('There was an error!', error);
-          this.dbService.onFormSubmit(
-            values.playerName,
-            values.cardNumber,
-            values.cardCompany,
-            this.card?.PSACert ?? 'N/A',
-          );
         },
       );
     this.DbService.loadCardData();

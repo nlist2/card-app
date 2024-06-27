@@ -1,37 +1,54 @@
 <h1 mat-dialog-title>Card Form</h1>
 <mat-dialog-content [formGroup]="cardForm" class="mat-typography">
-  <div class="cardForm">
-    <div>
-      <div layout="column">
+  <div class="cardForm" style="display: flex; flex-direction: row; justify-content: space-between;">
+    <div class="card-prompt" style="flex: 1; margin-right: 20px;">
+      <div style="display: flex; flex-direction: column;">
+        <div style="margin-bottom: 10px;">
+          <i>Enter an 8-digit PSA Certification number</i>
+        </div>
         <mat-form-field appearance="outline">
-          <mat-label>PSA Cert Number</mat-label>
+          <mat-label>Certification Number</mat-label>
           <input matInput type="text" formControlName="certNumber" />
         </mat-form-field>
       </div>
-      <div layout="column" flex>
+
+      <h1 style="text-align: center;">or</h1>
+
+      <!-- Manual Search -->
+      <div style="display: flex; flex-direction: column;">
+        <div style="margin-bottom: 10px;">
+          <i>Search for a card by name</i>
+        </div>
         <mat-form-field appearance="outline">
-          <mat-label>Player Name</mat-label>
-          <input matInput type="text" formControlName="playerName" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Card Number</mat-label>
-          <input matInput type="text" formControlName="cardNumber" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Grade</mat-label>
-          <input matInput type="text" formControlName="cardGrade" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Card Company</mat-label>
-          <input matInput type="text" formControlName="cardCompany" />
+          <mat-label>Card Name</mat-label>
+          <input matInput type="text" formControlName="userQuery" placeholder="e.g. 2021 Topps Shohei Ohtani #32" />
+          <button mat-icon-button matSuffix type="button" (click)="getPrices(cardForm.get('userQuery')?.value)">
+            <mat-icon>search</mat-icon>
+          </button>
         </mat-form-field>
       </div>
     </div>
+
+    <div *ngIf="priceResults.length != 0" class="price-results" style="flex: 1; display: flex; flex-direction: column;">
+      <h3>Is this your card?</h3>
+      <div *ngFor="let card of priceResults" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <img src="{{card.imageUri}}" alt="Card Image" style="width: 50px; height: auto; margin-right: 10px;">
+        <span>{{ card.productName }}</span>
+        <button type="button" mat-icon-button mat-dialog-close (click)="submitForm()"> <mat-icon>check</mat-icon></button>
+      </div>
+    </div>
+
+    <div *ngIf="priceResults.length == 0 && query != null" class="price-results" style="flex: 1; display: flex; flex-direction: column;">
+      <h3>Is your card</h3>
+      <div> {{ query }} </div>
+      <button type="button" mat-icon-button mat-dialog-close (click)="submitForm()"> <mat-icon>check</mat-icon></button>
+    </div>
+  </div>
+
+
+
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button type="button" mat-dialog-close (click)="submitForm()">
-        Add
-      </button>
     </mat-dialog-actions>
-  </div></mat-dialog-content
+  </mat-dialog-content
 >

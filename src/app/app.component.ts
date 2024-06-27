@@ -1,16 +1,14 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CollectionReference, DocumentData } from 'firebase/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CardComponent } from './card/card.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { firebaseConfig, psaSettings } from '../environment';
 import { MatInputModule } from '@angular/material/input';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +18,7 @@ import { DbService } from './db.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
-import { MatSlider, MatSliderModule } from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { card, list } from '../environment';
 import { LoginService } from './login/login.service';
 import {
@@ -71,12 +69,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AppComponent {
   title = 'Card Collection';
   cardData: CollectionReference<DocumentData, DocumentData>;
-  cardInfoForm: FormGroup;
   formOpen: boolean = false;
   userCards: DocumentData[];
-  public loggedIn: boolean = false;
+  public loggedIn: boolean;
   public cardView: boolean = true;
-  response: any;
   cardSize: any;
   public isMobileLayout: boolean = false;
   dataSource: DocumentData[];
@@ -106,7 +102,7 @@ export class AppComponent {
     this.loginService.username$.subscribe((username: string) => {
       this.username = username;
     });
-  }
+  }  
 
   ngAfterViewInit() {
     this.element?.nativeElement
