@@ -102,7 +102,7 @@ export class AppComponent {
     this.loginService.username$.subscribe((username: string) => {
       this.username = username;
     });
-  }  
+  }
 
   ngAfterViewInit() {
     this.element?.nativeElement

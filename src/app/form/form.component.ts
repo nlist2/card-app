@@ -31,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     HttpClientModule,
     CommonModule,
-    MatIconModule
+    MatIconModule,
   ],
 })
 export class FormDialog {
@@ -85,7 +85,12 @@ export class FormDialog {
         (data) => {
           this.response = data;
           this.card = data;
-          this.query =  data.PSACert.Year + " " + data.PSACert.Subject + " " + data.PSACert.Brand;
+          this.query =
+            data.PSACert.Year +
+            ' ' +
+            data.PSACert.Subject +
+            ' ' +
+            data.PSACert.Brand;
 
           console.log(data.PSACert);
           this.getPrices(this.query);
@@ -98,20 +103,19 @@ export class FormDialog {
 
   public getPrices(query: string): void {
     this.http
-    .get<any>(
-      `https://www.sportscardspro.com/search-products?q=${query}&type=prices`
-    )
-    .subscribe(
-      (data) => {
-        // Data response
-        console.log(query);
-        this.priceResults = data.products?.slice(0,3);
-      },
-      (error) => {
-        console.error('There was an error!', error);
-      },
-    );
-
+      .get<any>(
+        `https://www.sportscardspro.com/search-products?q=${query}&type=prices`,
+      )
+      .subscribe(
+        (data) => {
+          // Data response
+          console.log(query);
+          this.priceResults = data.products?.slice(0, 10);
+        },
+        (error) => {
+          console.error('There was an error!', error);
+        },
+      );
   }
 
   public submitForm(): void {
@@ -131,9 +135,9 @@ export class FormDialog {
           data.forEach((element: { ImageURL: any; IsFrontImage: any }) => {
             if (element.IsFrontImage) {
               this.dbService.onFormSubmit(
-                this.card.Subject ?? "",
-                this.card.CardNumber ?? "",
-                this.card.Brand ?? "",
+                this.card.Subject ?? '',
+                this.card.CardNumber ?? '',
+                this.card.Brand ?? '',
                 this.card ?? 'N/A',
                 element.ImageURL,
               );
