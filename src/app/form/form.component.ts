@@ -59,7 +59,7 @@ export class FormDialog {
     this.subscription = this.cardForm
       .get('certNumber')!
       .valueChanges.pipe(
-        map((value) => value.toString()),
+        map((value) => value?.toString()),
         filter((value) => value.length === 8),
       )
       .subscribe((value) => {
@@ -109,8 +109,22 @@ export class FormDialog {
       .subscribe(
         (data) => {
           // Data response
-          console.log(query);
           this.priceResults = data.products?.slice(0, 10);
+          console.log(this.priceResults)
+        },
+        (error) => {
+          console.error('There was an error!', error);
+        },
+      );
+
+      this.http
+      .get<any>(
+        `https://www.sportscardspro.com/game/baseball-cards-2023-topps/shohei-ohtani-17`,
+      )
+      .subscribe(
+        (data) => {
+          // Data response
+          console.log(data)
         },
         (error) => {
           console.error('There was an error!', error);
